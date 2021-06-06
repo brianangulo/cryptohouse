@@ -29,7 +29,7 @@
     <img src="assets/icon.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">GPUTrackIT</h3>
+  <h3 align="center">CryptoHouse</h3>
 
   <p align="center">
     Android app that lets you track Graphic Cards prices on Amazon
