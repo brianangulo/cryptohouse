@@ -1,15 +1,19 @@
-import React, { Component } from 'react';
+import React from "react";
 import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 import TrackIT from "./TrackITComponent";
 import { createStackNavigator } from "@react-navigation/stack";
-import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from "@react-navigation/drawer";
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItemList,
+  DrawerItem,
+} from "@react-navigation/drawer";
 import { Icon, Avatar } from "react-native-elements";
 import FAQ from "./FAQComponent";
-import { NavigationContainer } from "@react-navigation/native";
 import { auth } from "../firebase/firebase";
-import Contact from "./ContactComponent";
+import Contact from "./ContactView";
 import Feed from "./FeedView";
-import LoginView from './LoginView';
+import LoginView from "./LoginView";
 
 const Stack = createStackNavigator();
 
@@ -29,23 +33,22 @@ function CustomDrawerContent(props) {
         </View>
       </SafeAreaView>
       <DrawerItemList {...props} />
-      <DrawerItem 
-      label="Sign Out"
-      onPress={() => {
-        if (auth.currentUser !== null) {
-          auth
-            .signOut()
-            .then(() => {
-              console.log("user signed out");
-            })
-            .catch((err) => {
-              console.log(`Found Error ${err}`);
-            });
-        } else {
-          console.log("unable to sign out: no user signed in")
-        }
-        
-      }}
+      <DrawerItem
+        label="Sign Out"
+        onPress={() => {
+          if (auth.currentUser !== null) {
+            auth
+              .signOut()
+              .then(() => {
+                console.log("user signed out");
+              })
+              .catch((err) => {
+                console.log(`Found Error ${err}`);
+              });
+          } else {
+            console.log("unable to sign out: no user signed in");
+          }
+        }}
       />
     </DrawerContentScrollView>
   );
@@ -83,7 +86,7 @@ const LoginStack = ({ navigation }) => {
   );
 };
 
-const ContactStack = ({navigation}) => {
+const ContactStack = ({ navigation }) => {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -113,41 +116,41 @@ const ContactStack = ({navigation}) => {
       />
     </Stack.Navigator>
   );
-}
+};
 
-const TrackITStack = ({navigation}) => {
-    return (
-      <Stack.Navigator>
-        <Stack.Screen
-          name="TrackIT"
-          component={TrackIT}
-          options={{
-            headerTitleStyle: {
-              color: "#ffffff",
-            },
-            headerStyle: {
-              backgroundColor: "#2459E0",
-            },
-            headerTitleAlign: "center",
-            headerLeft: () => (
-              <Icon
-                name="bars"
-                type="font-awesome-5"
-                color="#ffffff"
-                iconStyle={{ padding: 15 }}
-                onPress={() => {
-                  navigation.openDrawer();
-                  console.log("Drawer menu icon was clicked");
-                }}
-              />
-            ),
-          }}
-        />
-      </Stack.Navigator>
-    );
-}
+const TrackITStack = ({ navigation }) => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="TrackIT"
+        component={TrackIT}
+        options={{
+          headerTitleStyle: {
+            color: "#ffffff",
+          },
+          headerStyle: {
+            backgroundColor: "#2459E0",
+          },
+          headerTitleAlign: "center",
+          headerLeft: () => (
+            <Icon
+              name="bars"
+              type="font-awesome-5"
+              color="#ffffff"
+              iconStyle={{ padding: 15 }}
+              onPress={() => {
+                navigation.openDrawer();
+                console.log("Drawer menu icon was clicked");
+              }}
+            />
+          ),
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
 
-const FeedStack = ({navigation}) => {
+const FeedStack = ({ navigation }) => {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -179,37 +182,37 @@ const FeedStack = ({navigation}) => {
   );
 };
 
-const FAQStack = ({navigation}) => {
-    return (
-      <Stack.Navigator>
-        <Stack.Screen
-          name="FAQ"
-          component={FAQ}
-          options={{
-            headerTitleStyle: {
-              color: "#ffffff",
-            },
-            headerStyle: {
-              backgroundColor: "#2459E0",
-            },
-            headerTitleAlign: "center",
-            headerLeft: () => (
-              <Icon
-                name="bars"
-                type="font-awesome-5"
-                color="#ffffff"
-                iconStyle={{ padding: 15 }}
-                onPress={() => {
-                  navigation.openDrawer();
-                  console.log("Drawer menu icon was clicked");
-                }}
-              />
-            ),
-          }}
-        />
-      </Stack.Navigator>
-    );
-}
+const FAQStack = ({ navigation }) => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="FAQ"
+        component={FAQ}
+        options={{
+          headerTitleStyle: {
+            color: "#ffffff",
+          },
+          headerStyle: {
+            backgroundColor: "#2459E0",
+          },
+          headerTitleAlign: "center",
+          headerLeft: () => (
+            <Icon
+              name="bars"
+              type="font-awesome-5"
+              color="#ffffff"
+              iconStyle={{ padding: 15 }}
+              onPress={() => {
+                navigation.openDrawer();
+                console.log("Drawer menu icon was clicked");
+              }}
+            />
+          ),
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
 
 const MainDrawer = () => {
   return (
@@ -224,22 +227,6 @@ const MainDrawer = () => {
     </Drawer.Navigator>
   );
 };
-
-class Main extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { 
-            
-         };
-    }
-    render() {
-        return (
-          <NavigationContainer>
-            <MainDrawer />
-          </NavigationContainer>
-        );
-    }
-}
 
 const styles = StyleSheet.create({
   drawerHeader: {
@@ -260,4 +247,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Main;
+export default MainDrawer;

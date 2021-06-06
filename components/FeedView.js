@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import {SafeAreaView} from 'react-native';
 //Components imports
-import FeedList from './FeedComponent';
+import FeedList from './core_components/FeedComponent';
 //Api key
 import {API_KEY} from '../keys';
 //Axios
