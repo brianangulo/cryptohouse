@@ -14,6 +14,7 @@ import { auth } from "../firebase/firebase";
 import Contact from "./ContactView";
 import Feed from "./FeedView";
 import LoginView from "./LoginView";
+import SignUpView from "./SignUpView";
 
 const Stack = createStackNavigator();
 
@@ -214,6 +215,38 @@ const FAQStack = ({ navigation }) => {
   );
 };
 
+const SignUpStack = ({ navigation }) => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Sign Up"
+        component={SignUpView}
+        options={{
+          headerTitleStyle: {
+            color: "#ffffff",
+          },
+          headerStyle: {
+            backgroundColor: "#2459E0",
+          },
+          headerTitleAlign: "center",
+          headerLeft: () => (
+            <Icon
+              name="bars"
+              type="font-awesome-5"
+              color="#ffffff"
+              iconStyle={{ padding: 15 }}
+              onPress={() => {
+                navigation.openDrawer();
+                console.log("Drawer menu icon was clicked");
+              }}
+            />
+          ),
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
 const MainDrawer = () => {
   return (
     <Drawer.Navigator
@@ -223,6 +256,7 @@ const MainDrawer = () => {
       <Drawer.Screen name="NewsFeed" component={FeedStack} />
       <Drawer.Screen name="FAQs" component={FAQStack} />
       <Drawer.Screen name="Message Us" component={ContactStack} />
+      <Drawer.Screen name="Sign Up" component={SignUpStack} />
       <Drawer.Screen name="Login" component={LoginStack} />
     </Drawer.Navigator>
   );
