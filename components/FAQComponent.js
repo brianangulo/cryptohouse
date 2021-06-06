@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Card } from "react-native-elements";
-import { View, Text, StyleSheet, ToastAndroid } from "react-native";
+import { View, Text, StyleSheet, ToastAndroid, Platform, Alert } from "react-native";
 import { db } from "../firebase/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { getFaqs } from "../redux/appSlice";
@@ -26,7 +26,7 @@ const getData = () => {
     })
     .catch((error) => {
       console.log(error);
-      ToastAndroid.show(`Unable to retrieve data: ${error}`, ToastAndroid.LONG);
+      Platform.OS === "android" ? ToastAndroid.show(`Unable to retrieve data: ${error}`, ToastAndroid.LONG) : Alert.alert(`Error: ${error}`)
     });
 }
 
