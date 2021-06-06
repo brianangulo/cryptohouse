@@ -15,6 +15,7 @@ import Contact from "./ContactView";
 import Feed from "./FeedView";
 import LoginView from "./LoginView";
 import SignUpView from "./SignUpView";
+import TickersView from "./TickersView";
 
 const Stack = createStackNavigator();
 
@@ -247,12 +248,44 @@ const SignUpStack = ({ navigation }) => {
   );
 };
 
+const TickersStack = ({ navigation }) => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Crypto's Feed"
+        component={TickersView}
+        options={{
+          headerTitleStyle: {
+            color: "#ffffff",
+          },
+          headerStyle: {
+            backgroundColor: "#2459E0",
+          },
+          headerTitleAlign: "center",
+          headerLeft: () => (
+            <Icon
+              name="bars"
+              type="font-awesome-5"
+              color="#ffffff"
+              iconStyle={{ padding: 15 }}
+              onPress={() => {
+                navigation.openDrawer();
+                console.log("Drawer menu icon was clicked");
+              }}
+            />
+          ),
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
 const MainDrawer = () => {
   return (
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawerContent {...props} />}
     >
-      <Drawer.Screen name="TrackIT" component={TrackITStack} />
+      <Drawer.Screen name="Tickers" component={TickersStack} />
       <Drawer.Screen name="NewsFeed" component={FeedStack} />
       <Drawer.Screen name="FAQs" component={FAQStack} />
       <Drawer.Screen name="Message Us" component={ContactStack} />
