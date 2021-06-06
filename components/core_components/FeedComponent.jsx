@@ -1,6 +1,6 @@
 //Core
 import React from "react";
-import { FlatList } from "react-native";
+import { FlatList, RefreshControl } from "react-native";
 //importing some dependencies
 import { ListItem, Icon } from "react-native-elements";
 //Url previewer
@@ -32,6 +32,12 @@ function FeedList(props) {
 
   return (
     <FlatList
+      refreshControl={
+        <RefreshControl
+          refreshing={props.refreshing}
+          onRefresh={props.fetchLinks}
+        />
+      }
       keyExtractor={keyExtractor}
       data={props.url}
       renderItem={renderItem}

@@ -11,7 +11,7 @@ import axios from 'axios';
 function Feed() {
   //state + redux hooks
 const [url, setUrl] = useState("");
-
+const [refreshing, setRefreshing] = useState(false);
   //Fetching info
   const fetchLinks = () => {
     const options = {
@@ -26,8 +26,9 @@ const [url, setUrl] = useState("");
     axios
       .request(options)
       .then(function (response) {
+       setRefreshing(true); 
        setUrl(response.data); 
-      })
+      }).then(() => {setRefreshing(false);})
       .catch(function (error) {
         console.error(error);
       });
@@ -39,7 +40,7 @@ const [url, setUrl] = useState("");
 
   return (
     <SafeAreaView>
-      <FeedList url={url} />
+      <FeedList url={url} refreshing={refreshing} fetchLinks={fetchLinks} />
     </SafeAreaView>
   );
 }

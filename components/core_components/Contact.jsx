@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import { Input } from "react-native-elements";
 
-function ContactComponent({ control, errors, handleSubmit, Controller }) {
+function ContactComponent({ control, errors, handleSubmit, Controller, onSubmit }) {
   return (
     <View style={{ flex: 1 }}>
       <View style={{ marginTop: 60, padding: 20 }}>
