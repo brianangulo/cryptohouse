@@ -32,7 +32,7 @@
   <h3 align="center">CryptoHouse</h3>
 
   <p align="center">
-    Android app that lets you track Graphic Cards prices on Amazon
+    React Native App for all your crypto news!
     <br />
     <br />
     <a href="https://play.google.com/store/apps/details?id=com.gputrackit.gputrackit">View Live</a>
