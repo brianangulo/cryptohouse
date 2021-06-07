@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Alert } from "react-native";
+import { Alert, Platform, ToastAndroid } from "react-native";
 import LoginComponent from "./core_components/Login";
 //fb auth
 import { auth } from "../firebase/firebase";
@@ -40,6 +40,7 @@ function LoginView() {
     auth.signInWithEmailAndPassword(email, password).catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
+      Platform.OS === "ios" ? Alert.alert(errorCode) : ToastAndroid.show(errorCode, ToastAndroid.LONG);
       console.log(` errCode: ${errorCode} & errMess: ${errorMessage}`);
     });
   };
