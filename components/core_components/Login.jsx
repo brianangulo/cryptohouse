@@ -110,16 +110,16 @@ const styles = StyleSheet.create({
     marginHorizontal: "5%",
   },
   titleView: {
-    flex: 2.2,
+    flex: 2,
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
   },
   inputView: {
-    flex: 2,
+    flex: 3.5,
   },
   switchView: {
-    flex: 1,
+    flex: 2,
     flexDirection: "row",
     justifyContent: "flex-start",
   },
