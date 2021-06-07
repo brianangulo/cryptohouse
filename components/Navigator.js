@@ -13,15 +13,13 @@ import Contact from "./ContactView";
 import Feed from "./FeedView";
 import LoginView from "./LoginView";
 import TickersView from "./TickersView";
-import { useDispatch, useSelector } from "react-redux";
-import { setIsSignedIn } from "../redux/appSlice";
+import { useSelector } from "react-redux";
 
 const Stack = createStackNavigator();
 
 const Drawer = createDrawerNavigator();
 
 function CustomDrawerContent(props) {
- const dispatch = useDispatch();
   return (
     <DrawerContentScrollView {...props}>
       <SafeAreaView style={styles.container}>
@@ -39,7 +37,6 @@ function CustomDrawerContent(props) {
         label="Sign Out"
         onPress={() => {
           if (auth.currentUser !== null) {
-            dispatch(setIsSignedIn(false));
             auth
               .signOut()
               .then(() => {

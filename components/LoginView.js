@@ -9,6 +9,7 @@ import { setIsSignedIn } from "../redux/appSlice";
 function LoginView() {
   //redux
   const dispatch = useDispatch();
+  
   //regex email & pwd
   const emailRegex =
     /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
@@ -19,13 +20,16 @@ function LoginView() {
   //hooks for the form control
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  //useEffect for testing purposes only
+  //useEffect controls auth status
   useEffect(() => {
+    console.log("auth use effect firing");
     auth.onAuthStateChanged((user) => {
       if (user) {
         console.log(`User: ${user.email} is signed in`);
+        dispatch(setIsSignedIn(true));
       } else {
         console.log("No user is signed in at this time");
+        dispatch(setIsSignedIn(false));
       }
     });
   }, []);
@@ -56,7 +60,6 @@ function LoginView() {
       handleSignIn(email, password);
       setEmail("");
       setPassword("");
-      dispatch(setIsSignedIn(true));
     } else {
       Alert.alert("Missing Login Information");
     }
