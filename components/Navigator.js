@@ -1,6 +1,5 @@
 import React from "react";
 import { View, Text, StyleSheet, SafeAreaView } from "react-native";
-import TrackIT from "./TrackITComponent";
 import { createStackNavigator } from "@react-navigation/stack";
 import {
   createDrawerNavigator,
@@ -14,12 +13,15 @@ import Contact from "./ContactView";
 import Feed from "./FeedView";
 import LoginView from "./LoginView";
 import TickersView from "./TickersView";
+import { useDispatch, useSelector } from "react-redux";
+import { setIsSignedIn } from "../redux/appSlice";
 
 const Stack = createStackNavigator();
 
 const Drawer = createDrawerNavigator();
 
 function CustomDrawerContent(props) {
+ const dispatch = useDispatch();
   return (
     <DrawerContentScrollView {...props}>
       <SafeAreaView style={styles.container}>
@@ -37,6 +39,7 @@ function CustomDrawerContent(props) {
         label="Sign Out"
         onPress={() => {
           if (auth.currentUser !== null) {
+            dispatch(setIsSignedIn(false));
             auth
               .signOut()
               .then(() => {
@@ -92,38 +95,6 @@ const ContactStack = ({ navigation }) => {
       <Stack.Screen
         name="Message Us"
         component={Contact}
-        options={{
-          headerTitleStyle: {
-            color: "#ffffff",
-          },
-          headerStyle: {
-            backgroundColor: "#2459E0",
-          },
-          headerTitleAlign: "center",
-          headerLeft: () => (
-            <Icon
-              name="bars"
-              type="font-awesome-5"
-              color="#ffffff"
-              iconStyle={{ padding: 15 }}
-              onPress={() => {
-                navigation.openDrawer();
-                console.log("Drawer menu icon was clicked");
-              }}
-            />
-          ),
-        }}
-      />
-    </Stack.Navigator>
-  );
-};
-
-const TrackITStack = ({ navigation }) => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="TrackIT"
-        component={TrackIT}
         options={{
           headerTitleStyle: {
             color: "#ffffff",
@@ -215,16 +186,27 @@ const TickersStack = ({ navigation }) => {
 };
 
 const MainDrawer = () => {
-  return (
-    <Drawer.Navigator
-      drawerContent={(props) => <CustomDrawerContent {...props} />}
-    >
-      <Drawer.Screen name="Tickers" component={TickersStack} />
-      <Drawer.Screen name="NewsFeed" component={FeedStack} />
-      <Drawer.Screen name="Message Us" component={ContactStack} />
-      <Drawer.Screen name="Login" component={LoginStack} />
-    </Drawer.Navigator>
-  );
+  const isSignedIn = useSelector((state) => state.app.isSignedIn);
+   if(!isSignedIn) {
+     console.log("if fired");
+    return (
+      <Drawer.Navigator>
+        <Drawer.Screen name="Login" component={LoginStack} />
+      </Drawer.Navigator>
+    );
+
+   } else {
+     console.log("else fired");
+     return (
+       <Drawer.Navigator
+         drawerContent={(props) => <CustomDrawerContent {...props} />}
+       >
+         <Drawer.Screen name="Tickers" component={TickersStack} />
+         <Drawer.Screen name="NewsFeed" component={FeedStack} />
+         <Drawer.Screen name="Message Us" component={ContactStack} />
+       </Drawer.Navigator>
+     );
+   } 
 };
 
 const styles = StyleSheet.create({
