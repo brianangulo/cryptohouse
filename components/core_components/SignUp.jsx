@@ -54,7 +54,7 @@ function SignUpComponent({
               name !== ""
                 ? nameRegex.test(name)
                   ? null
-                  : "Please enter a valid name!"
+                  : "Please enter a valid username!"
                 : null
             
             }
