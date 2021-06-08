@@ -90,6 +90,7 @@ function Contact() {
       errors={errors}
       handleSubmit={handleSubmit}
       Controller={Controller}
+      onSubmit={onSubmit}
       />
     );
 }

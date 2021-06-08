@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "GPUTrackIT",
-    "slug": "GPUTrackIT",
+    "name": "CryptoHouse",
+    "slug": "CryptoHouse",
     "version": "1.0.0",
     "orientation": "portrait",
     "splash": {
@@ -16,7 +16,9 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.brian.cryptohouse",
+      "buildNumber": "1.0.1"
     },
     "android": {
       "adaptiveIcon": {

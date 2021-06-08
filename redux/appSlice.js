@@ -3,23 +3,15 @@ import { createSlice } from "@reduxjs/toolkit";
 export const appSlice = createSlice({
   name: "app",
   initialState: {
-    faqInfo: [],
-    price: 0.00,
-    gpu: "RTX3060",
+    isSignedIn: false,
   },
   reducers: {
-    getFaqs: (state, action) => {
-      state.faqInfo = action.payload;
-    },
-    setPrice: (state, action) => {
-      state.price = action.payload;
-    },
-    setGpu: (state, action) => {
-      state.gpu = action.payload;
+    setIsSignedIn: (state, action) => {
+      state.isSignedIn = action.payload;
     }
   },
 });
 
-export const { getFaqs, setGpu, setPrice } = appSlice.actions;
+export const { setIsSignedIn } = appSlice.actions;
 
 export default appSlice.reducer;

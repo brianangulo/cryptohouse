@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { Text, Button, Input, Switch, Icon } from "react-native-elements";
 import { moderateScale } from "react-native-size-matters";
 //Animations library lottie
@@ -22,83 +22,85 @@ function LoginComponent({
   const pwdRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 
   return (
-    <View style={styles.container}>
-      <View style={styles.titleView}>
-        <Text style={styles.title} h2>
-          Sign In
-        </Text>
-        <Text style={styles.subTitle}>Welcome Back!</Text>
-        <View style={styles.animationView}>
-          <LottieView autoPlay loop source={animation} />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <View style={styles.container}>
+        <View style={styles.titleView}>
+          <Text style={styles.title} h2>
+            Sign In
+          </Text>
+          <Text style={styles.subTitle}>Welcome Back!</Text>
+          <View style={styles.animationView}>
+            <LottieView autoPlay loop source={animation} />
+          </View>
         </View>
-      </View>
-      <View style={styles.inputView}>
-        <Input
-          textContentType="emailAddress"
-          label="Email"
-          placeholder="email@email.com"
-          leftIcon={<Icon name="email" size={21} color="black" />}
-          value={email}
-          onChangeText={setEmail}
-          errorStyle={{ color: "red" }}
-          errorMessage={
-            //confusing ternary chaining usage so note to self:
-            //checking to see if user has entered any input by looking at the value of the controlling variable
-            email !== ""
-              ? emailRegex.test(email)
-                ? null
-                : "Please enter a valid email!"
-              : null
-          }
-        />
-        <Input
-          label="Password"
-          placeholder="Password"
-          textContentType="password"
-          secureTextEntry
-          leftIcon={<Icon name="lock" size={21} color="black" />}
-          onChangeText={setPassword}
-          value={password}
-          errorStyle={{ color: "red" }}
-          errorMessage={
-            //confusing ternary chaining usage so note to self:
-            //checking to see if user has entered any input by looking at the value of the controlling variable
-            password !== ""
-              ? pwdRegex.test(password)
-                ? null
-                : "8+ letters and numbers only with at least 1+ number, 1+ upper-case"
-              : null
-          }
-        />
-        <View style={styles.switchView}>
-          <Switch
-            style={styles.switch}
-            value={switchValue}
-            onValueChange={setSwitchValue}
+        <View style={styles.inputView}>
+          <Input
+            textContentType="emailAddress"
+            label="Email"
+            placeholder="email@email.com"
+            leftIcon={<Icon name="email" size={21} color="black" />}
+            value={email}
+            onChangeText={setEmail}
+            errorStyle={{ color: "red" }}
+            errorMessage={
+              //confusing ternary chaining usage so note to self:
+              //checking to see if user has entered any input by looking at the value of the controlling variable
+              email !== ""
+                ? emailRegex.test(email)
+                  ? null
+                  : "Please enter a valid email!"
+                : null
+            }
           />
-          <Text style={styles.rememberMe}>Remember me</Text>
-          <Text
-            onPress={() => console.log("forgot password pressed")}
-            style={styles.forgotPwd}
-          >
-            Forgot Password
-          </Text>
+          <Input
+            label="Password"
+            placeholder="Password"
+            textContentType="password"
+            secureTextEntry
+            leftIcon={<Icon name="lock" size={21} color="black" />}
+            onChangeText={setPassword}
+            value={password}
+            errorStyle={{ color: "red" }}
+            errorMessage={
+              //confusing ternary chaining usage so note to self:
+              //checking to see if user has entered any input by looking at the value of the controlling variable
+              password !== ""
+                ? pwdRegex.test(password)
+                  ? null
+                  : "8+ letters and numbers only with at least 1+ number, 1+ upper-case"
+                : null
+            }
+          />
+          <View style={styles.switchView}>
+            <Switch
+              style={styles.switch}
+              value={switchValue}
+              onValueChange={setSwitchValue}
+            />
+            <Text style={styles.rememberMe}>Remember me</Text>
+            <Text
+              onPress={() => console.log("forgot password pressed")}
+              style={styles.forgotPwd}
+            >
+              Forgot Password
+            </Text>
+          </View>
+        </View>
+        <View style={styles.buttonView}>
+          <Button
+            containerStyle={styles.signInButton}
+            title="Sign In"
+            onPress={handleSubmit}
+          />
+          <View style={styles.signUpOfferView}>
+            <Text style={styles.noAcctTxt}>
+              Don't have an account?
+              <Text style={styles.signUpTxt}> Sign Up</Text>
+            </Text>
+          </View>
         </View>
       </View>
-      <View style={styles.buttonView}>
-        <Button
-          containerStyle={styles.signInButton}
-          title="Sign In"
-          onPress={handleSubmit}
-        />
-        <View style={styles.signUpOfferView}>
-          <Text style={styles.noAcctTxt}>
-            Don't have an account?
-            <Text style={styles.signUpTxt}> Sign Up</Text>
-          </Text>
-        </View>
-      </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -110,21 +112,20 @@ const styles = StyleSheet.create({
     marginHorizontal: "5%",
   },
   titleView: {
-    flex: 2.2,
+    flex: 2,
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
   },
   inputView: {
-    flex: 2,
+    flex: 3,
   },
   switchView: {
-    flex: 1,
     flexDirection: "row",
     justifyContent: "flex-start",
   },
   buttonView: {
-    flex: 2,
+    flex: 1.5,
   },
   title: {},
   subTitle: {

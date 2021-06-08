@@ -7,6 +7,7 @@ import {
   FB_MEASUREMENT_ID,
   FB_PROJECT_ID,
   RAPID_API_KEY,
+  NOMICS_API_KEY,
 } from "@env";
 
 export default {
@@ -18,4 +19,5 @@ export default {
   FB_MEASUREMENT_ID,
   FB_PROJECT_ID,
   RAPID_API_KEY,
+  NOMICS_API_KEY,
 };
