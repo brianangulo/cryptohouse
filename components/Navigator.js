@@ -29,7 +29,8 @@ function CustomDrawerContent(props) {
             <Avatar rounded icon={{ name: "computer", size: 30 }} />
           </View>
           <View style={{ flex: 2 }}>
-            <Text style={styles.headerName}>CryptoHouse</Text>
+            {/* below text component will use ternary to check if the signed user has a name and return it otherwise will return cryptohouse */}
+            <Text style={styles.headerName}>{auth.currentUser.displayName !== null ? auth.currentUser.displayName : "CryptoHouse"}</Text>
           </View>
         </View>
       </SafeAreaView>
