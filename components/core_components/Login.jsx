@@ -118,15 +118,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   inputView: {
-    flex: 3.5,
+    flex: 3,
   },
   switchView: {
-    flex: 2,
     flexDirection: "row",
     justifyContent: "flex-start",
   },
   buttonView: {
-    flex: 2,
+    flex: 1.5,
   },
   title: {},
   subTitle: {
