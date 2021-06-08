@@ -13,6 +13,7 @@ import Contact from "./ContactView";
 import Feed from "./FeedView";
 import LoginView from "./LoginView";
 import TickersView from "./TickersView";
+import SignUpView from "./SignUpView";
 import { useSelector } from "react-redux";
 
 const Stack = createStackNavigator();
@@ -60,6 +61,38 @@ const LoginStack = ({ navigation }) => {
       <Stack.Screen
         name="Login"
         component={LoginView}
+        options={{
+          headerTitleStyle: {
+            color: "#ffffff",
+          },
+          headerStyle: {
+            backgroundColor: "#2459E0",
+          },
+          headerTitleAlign: "center",
+          headerLeft: () => (
+            <Icon
+              name="bars"
+              type="font-awesome-5"
+              color="#ffffff"
+              iconStyle={{ padding: 15 }}
+              onPress={() => {
+                navigation.openDrawer();
+                console.log("Drawer menu icon was clicked");
+              }}
+            />
+          ),
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const SignUpStack = ({ navigation }) => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Sign Up"
+        component={SignUpView}
         options={{
           headerTitleStyle: {
             color: "#ffffff",
@@ -189,6 +222,7 @@ const MainDrawer = () => {
     return (
       <Drawer.Navigator>
         <Drawer.Screen name="Login" component={LoginStack} />
+        <Drawer.Screen name="Sign Up" component={SignUpStack} />
       </Drawer.Navigator>
     );
 
