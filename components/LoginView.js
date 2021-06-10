@@ -1,14 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Alert, Platform, ToastAndroid } from "react-native";
 import LoginComponent from "./core_components/Login";
 //fb auth
 import { auth } from "../firebase/firebase";
-import { useDispatch } from "react-redux";
-import { setIsSignedIn } from "../redux/appSlice";
 
 function LoginView() {
-  //redux
-  const dispatch = useDispatch();
 
   //regex email & pwd
   const emailRegex =
@@ -20,19 +16,6 @@ function LoginView() {
   //hooks for the form control
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  //useEffect controls auth status
-  useEffect(() => {
-    console.log("auth use effect firing");
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        console.log(`User: ${user.email} is signed in`);
-        dispatch(setIsSignedIn(true));
-      } else {
-        console.log("No user is signed in at this time");
-        dispatch(setIsSignedIn(false));
-      }
-    });
-  }, []);
 
   //Sign in logic + fb api
   const handleSignIn = (email, password) => {
