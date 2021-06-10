@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Alert, Platform, ToastAndroid } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import LoginComponent from "./core_components/Login";
 //fb auth
 import { auth } from "../firebase/firebase";
@@ -30,6 +31,35 @@ function LoginView({navigation}) {
     });
   };
 
+  //checking async storage for a remember me value
+  useEffect(() => { 
+    didYouRememberMe();
+  }, [])
+
+  //async storage key
+  const key = "USi0bZyHjt";
+
+  //below 3 functions handle remember me logic
+  const forgetMe = async () => {
+    await AsyncStorage.removeItem(key, (err) => console.log(err));
+  };
+
+  const rememberMe = async () => {
+    
+      await AsyncStorage.setItem(key, email, err => console.log(err));
+      
+  };
+
+  const didYouRememberMe = async () => {
+     await AsyncStorage.getItem(key, (err, storedEmail) => {
+       console.log(storedEmail);
+       if(storedEmail !== null) {
+         setEmail(storedEmail);
+         setSwitchValue(true);
+       }
+    });
+  }
+
   //Submit login button handler!
   const handleSubmit = () => {
     //checking to make sure all of the right information is being entered before submitting
@@ -44,6 +74,8 @@ function LoginView({navigation}) {
       password !== ""
     ) {
       handleSignIn(email, password);
+      switchValue ? rememberMe() : null;
+      forgetMe();
       setEmail("");
       setPassword("");
     } else {
