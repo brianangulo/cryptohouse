@@ -17,6 +17,7 @@ function LoginComponent({
   handleSubmit,
   emailRegex,
   pwdRegex,
+  navigation,
 }) {
   
   return (
@@ -93,7 +94,7 @@ function LoginComponent({
           <View style={styles.signUpOfferView}>
             <Text style={styles.noAcctTxt}>
               Don't have an account?
-              <Text style={styles.signUpTxt}> Sign Up</Text>
+              <Text style={styles.signUpTxt} onPress={() => navigation.navigate(`Sign Up`)}> Sign Up</Text>
             </Text>
           </View>
         </View>

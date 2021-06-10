@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Alert, Platform, ToastAndroid } from "react-native";
-import SignUp from "./core_components/SignUp";
+import SignUpComponent from "./core_components/SignUp";
 //fb auth
 import { auth } from "../firebase/firebase";
-import { useDispatch, useSelector } from "react-redux";
-import { setIsSignedIn } from "../redux/appSlice";
-import SignUpComponent from "./core_components/SignUp";
 
-function SignUpView() {
-  //redux
-  const dispatch = useDispatch();
-  const isSignedIn = useSelector((state) => state.app.isSignedIn);
+function SignUpView({navigation}) {
 
   //regex email & pwd & names
   const emailRegex =
@@ -76,6 +70,7 @@ function SignUpView() {
       nameRegex={nameRegex}
       confirmPassword={confirmPassword}
       setConfirmPassword={setConfirmPassword}
+      navigation={navigation}
     />
   );
 }

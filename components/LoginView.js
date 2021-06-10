@@ -4,7 +4,7 @@ import LoginComponent from "./core_components/Login";
 //fb auth
 import { auth } from "../firebase/firebase";
 
-function LoginView() {
+function LoginView({navigation}) {
 
   //regex email & pwd
   const emailRegex =
@@ -62,6 +62,7 @@ function LoginView() {
       handleSubmit={handleSubmit}
       emailRegex={emailRegex}
       pwdRegex={pwdRegex}
+      navigation={navigation}
     />
   );
 }

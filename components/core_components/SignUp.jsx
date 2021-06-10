@@ -26,6 +26,7 @@ function SignUpComponent({
   nameRegex,
   confirmPassword,
   setConfirmPassword,
+  navigation,
 }) {
   return (
     <ScrollView>
@@ -131,7 +132,7 @@ function SignUpComponent({
           <View style={styles.signUpOfferView}>
             <Text style={styles.noAcctTxt}>
               Already have an account?
-              <Text style={styles.signUpTxt}> Sign In</Text>
+              <Text style={styles.signUpTxt} onPress={() => navigation.goBack()}> Sign In</Text>
             </Text>
           </View>
         </View>
