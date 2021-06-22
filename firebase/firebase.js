@@ -1,6 +1,11 @@
 import firebase from "firebase";
 import "firebase/firestore";
 import config from "../config";
+import store from "../redux/store";
+import { setIsSignedIn } from "../redux/appSlice";
+
+//redux
+const dispatch =  store.dispatch;
 
 const firebaseConfig = {
   apiKey: config.FB_API_KEY,
@@ -18,5 +23,16 @@ if (firebase.apps.length === 0) {
 
 export const db = firebase.firestore();
 export const auth = firebase.auth();
+
+//user auth status tracker
+auth.onAuthStateChanged((user) => {
+  if (user) {
+    console.log(`User: ${user.email} is signed in`);
+    dispatch(setIsSignedIn(true));
+  } else {
+    console.log("No user is signed in at this time");
+    dispatch(setIsSignedIn(false));
+  }
+});
 
 export default firebase;

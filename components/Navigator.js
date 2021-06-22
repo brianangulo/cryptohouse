@@ -13,6 +13,7 @@ import Contact from "./ContactView";
 import Feed from "./FeedView";
 import LoginView from "./LoginView";
 import TickersView from "./TickersView";
+import SignUpView from "./SignUpView";
 import { useSelector } from "react-redux";
 
 const Stack = createStackNavigator();
@@ -28,7 +29,8 @@ function CustomDrawerContent(props) {
             <Avatar rounded icon={{ name: "computer", size: 30 }} />
           </View>
           <View style={{ flex: 2 }}>
-            <Text style={styles.headerName}>CryptoHouse</Text>
+            {/* below text component will use ternary to check if the signed user has a name and return it otherwise will return cryptohouse */}
+            <Text style={styles.headerName}>{auth.currentUser.displayName !== null ? auth.currentUser.displayName : "CryptoHouse"}</Text>
           </View>
         </View>
       </SafeAreaView>
@@ -53,10 +55,10 @@ function CustomDrawerContent(props) {
     </DrawerContentScrollView>
   );
 }
-
-const LoginStack = ({ navigation }) => {
+//login stack contains both login and sign up ones
+const LoginStack = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="Login">
       <Stack.Screen
         name="Login"
         component={LoginView}
@@ -67,19 +69,22 @@ const LoginStack = ({ navigation }) => {
           headerStyle: {
             backgroundColor: "#2459E0",
           },
+          headerTintColor: "#ffffff",
           headerTitleAlign: "center",
-          headerLeft: () => (
-            <Icon
-              name="bars"
-              type="font-awesome-5"
-              color="#ffffff"
-              iconStyle={{ padding: 15 }}
-              onPress={() => {
-                navigation.openDrawer();
-                console.log("Drawer menu icon was clicked");
-              }}
-            />
-          ),
+        }}
+      />
+      <Stack.Screen
+        name="Sign Up"
+        component={SignUpView}
+        options={{
+          headerTitleStyle: {
+            color: "#ffffff",
+          },
+          headerTintColor: "#ffffff",
+          headerStyle: {
+            backgroundColor: "#2459E0",
+          },
+          headerTitleAlign: "center",
         }}
       />
     </Stack.Navigator>
@@ -187,9 +192,7 @@ const MainDrawer = () => {
    if(!isSignedIn) {
      console.log("if fired");
     return (
-      <Drawer.Navigator>
-        <Drawer.Screen name="Login" component={LoginStack} />
-      </Drawer.Navigator>
+      <LoginStack />
     );
 
    } else {
