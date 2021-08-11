@@ -5,8 +5,7 @@ import LoginComponent from "./core_components/Login";
 //fb auth
 import { auth } from "../firebase/firebase";
 
-function LoginView({navigation}) {
-
+function LoginView({ navigation }) {
   //regex email & pwd
   const emailRegex =
     /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
@@ -17,6 +16,10 @@ function LoginView({navigation}) {
   //hooks for the form control
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    console.log(`this is the switcher value: ${switchValue}`);
+  }, [switchValue]);
 
   //Sign in logic + fb api
   const handleSignIn = (email, password) => {
@@ -31,13 +34,22 @@ function LoginView({navigation}) {
     });
   };
 
-  //checking async storage for a remember me value
-  useEffect(() => { 
-    didYouRememberMe();
-  }, [])
-
   //async storage key
   const key = "USi0bZyHjt";
+
+  //checking async storage for a remember me value
+  useEffect(() => {
+    const didYouRememberMe = async () => {
+      await AsyncStorage.getItem(key, (err, storedEmail) => {
+        console.log(storedEmail);
+        if (storedEmail !== null) {
+          setEmail(storedEmail);
+          setSwitchValue(true);
+        }
+      });
+    };
+    didYouRememberMe();
+  }, []);
 
   //below 3 functions handle remember me logic
   const forgetMe = async () => {
@@ -45,20 +57,8 @@ function LoginView({navigation}) {
   };
 
   const rememberMe = async () => {
-    
-      await AsyncStorage.setItem(key, email, err => console.log(err));
-      
+    await AsyncStorage.setItem(key, email, (err) => console.log(err));
   };
-
-  const didYouRememberMe = async () => {
-     await AsyncStorage.getItem(key, (err, storedEmail) => {
-       console.log(storedEmail);
-       if(storedEmail !== null) {
-         setEmail(storedEmail);
-         setSwitchValue(true);
-       }
-    });
-  }
 
   //Submit login button handler!
   const handleSubmit = () => {
@@ -74,7 +74,9 @@ function LoginView({navigation}) {
       password !== ""
     ) {
       handleSignIn(email, password);
-      switchValue ? rememberMe() : null;
+      if (switchValue) {
+        rememberMe();
+      }
       forgetMe();
       setEmail("");
       setPassword("");
