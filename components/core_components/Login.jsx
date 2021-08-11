@@ -18,8 +18,8 @@ function LoginComponent({
   emailRegex,
   pwdRegex,
   navigation,
+  handleSwitchChange,
 }) {
-  
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={styles.container}>
@@ -74,7 +74,7 @@ function LoginComponent({
             <Switch
               style={styles.switch}
               value={switchValue}
-              onValueChange={setSwitchValue}
+              onValueChange={handleSwitchChange}
             />
             <Text style={styles.rememberMe}>Remember me</Text>
             <Text
@@ -94,7 +94,13 @@ function LoginComponent({
           <View style={styles.signUpOfferView}>
             <Text style={styles.noAcctTxt}>
               Don't have an account?
-              <Text style={styles.signUpTxt} onPress={() => navigation.navigate(`Sign Up`)}> Sign Up</Text>
+              <Text
+                style={styles.signUpTxt}
+                onPress={() => navigation.navigate(`Sign Up`)}
+              >
+                {" "}
+                Sign Up
+              </Text>
             </Text>
           </View>
         </View>

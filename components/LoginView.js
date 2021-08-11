@@ -17,10 +17,6 @@ function LoginView({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  useEffect(() => {
-    console.log(`this is the switcher value: ${switchValue}`);
-  }, [switchValue]);
-
   //Sign in logic + fb api
   const handleSignIn = (email, password) => {
     //sign in login
@@ -34,17 +30,15 @@ function LoginView({ navigation }) {
     });
   };
 
-  //async storage key
-  const key = "USi0bZyHjt";
-
-  //checking async storage for a remember me value
+  //checking async storage for a remember me value and setting the state based on it
   useEffect(() => {
     const didYouRememberMe = async () => {
-      await AsyncStorage.getItem(key, (err, storedEmail) => {
-        console.log(storedEmail);
-        if (storedEmail !== null) {
-          setEmail(storedEmail);
-          setSwitchValue(true);
+      await AsyncStorage.getItem("email", (err, storedStuff) => {
+        const parsedStuff = JSON.parse(storedStuff);
+        console.log(parsedStuff);
+        if (storedStuff !== null) {
+          setEmail(parsedStuff.email);
+          setSwitchValue(parsedStuff.switch);
         }
       });
     };
@@ -52,16 +46,21 @@ function LoginView({ navigation }) {
   }, []);
 
   //below 3 functions handle remember me logic
+  //not being used at the moment
   const forgetMe = async () => {
-    await AsyncStorage.removeItem(key, (err) => console.log(err));
+    await AsyncStorage.clear().catch((err) => console.log(err));
   };
-
-  const rememberMe = async () => {
-    await AsyncStorage.setItem(key, email, (err) => console.log(err));
+  /**
+   *
+   * @param {*} key Needed storing key
+   * @param {*} valuesObj An object containing the data being saved
+   */
+  const rememberMe = async (key, valuesObj) => {
+    await AsyncStorage.setItem(key, valuesObj, (err) => console.log(err));
   };
 
   //Submit login button handler!
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     //checking to make sure all of the right information is being entered before submitting
     //else alerting user
     if (auth.currentUser !== null) {
@@ -75,14 +74,25 @@ function LoginView({ navigation }) {
     ) {
       handleSignIn(email, password);
       if (switchValue) {
-        rememberMe();
-      }
-      forgetMe();
+        await rememberMe(
+          "email",
+          JSON.stringify({
+            email: email,
+            switch: switchValue,
+          })
+        ).catch((err) => console.log(err));
+      } else await AsyncStorage.clear();
       setEmail("");
       setPassword("");
     } else {
       Alert.alert("Missing Login Information");
     }
+  };
+  /**
+   * This function will handle the switch changing on the login screen
+   */
+  const handleSwitchChange = async (value) => {
+    setSwitchValue(value);
   };
 
   return (
@@ -97,6 +107,7 @@ function LoginView({ navigation }) {
       emailRegex={emailRegex}
       pwdRegex={pwdRegex}
       navigation={navigation}
+      handleSwitchChange={handleSwitchChange}
     />
   );
 }
