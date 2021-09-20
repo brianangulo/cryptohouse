@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Alert, Platform, ToastAndroid } from "react-native";
-import SignUpComponent from "./core_components/SignUp";
+import SignUpComponent from "./SignUp";
 //fb auth
-import { auth } from "../firebase/firebase";
+import { auth } from "../../firebase/firebase";
 
 function SignUpView({navigation}) {
 

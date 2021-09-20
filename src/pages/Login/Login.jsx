@@ -1,65 +1,38 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  TouchableWithoutFeedback,
-  Keyboard,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, View, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { Text, Button, Input, Switch, Icon } from "react-native-elements";
 import { moderateScale } from "react-native-size-matters";
 //Animations library lottie
 import LottieView from "lottie-react-native";
 //importing animation asset
-import animation from "../../assets/loginAsset.json";
+import animation from "../../../assets/loginAsset.json";
 
-function SignUpComponent({
+function LoginComponent({
   email,
   setEmail,
   setPassword,
   password,
+  switchValue,
+  setSwitchValue,
   handleSubmit,
   emailRegex,
   pwdRegex,
-  name,
-  setName,
-  nameRegex,
-  confirmPassword,
-  setConfirmPassword,
   navigation,
+  handleSwitchChange,
 }) {
   return (
-    <ScrollView>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={styles.container}>
         <View style={styles.titleView}>
           <Text style={styles.title} h2>
-            Sign Up
+            Sign In
           </Text>
-          <Text style={styles.subTitle}>Excited to have you join us!</Text>
+          <Text style={styles.subTitle}>Welcome Back!</Text>
           <View style={styles.animationView}>
             <LottieView autoPlay loop source={animation} />
           </View>
         </View>
         <View style={styles.inputView}>
-          <Input
-            textContentType="username"
-            label="Username"
-            placeholder="e.g johnnyDoe"
-            leftIcon={<Icon name="person" size={21} color="black" />}
-            value={name}
-            onChangeText={setName}
-            errorStyle={{ color: "red" }}
-            errorMessage={
-              //confusing ternary chaining usage so note to self:
-              //checking to see if user has entered any input by looking at the value of the controlling variable
-              name !== ""
-                ? nameRegex.test(name)
-                  ? null
-                  : "Please enter a valid username!"
-                : null
-            
-            }
-          />
           <Input
             textContentType="emailAddress"
             label="Email"
@@ -97,47 +70,42 @@ function SignUpComponent({
                 : null
             }
           />
-          <Input
-            label="Confirm Password"
-            placeholder="Confirm Password"
-            textContentType="password"
-            secureTextEntry
-            leftIcon={<Icon name="lock" size={21} color="black" />}
-            onChangeText={setConfirmPassword}
-            value={confirmPassword}
-            errorStyle={{ color: "red" }}
-            errorMessage={
-              //confusing ternary chaining usage so note to self:
-              //Checks forst to see if confirmpassowrd is not empty then it checks to see if password is not empty
-              //then it goes ahead to check if password is regex compliant if it is then it will check to see if confirmpassword equals password
-              //if it doesnt then it will display password must match error
-              confirmPassword !== ""
-                ? password !== ""
-                  ? pwdRegex.test(password)
-                    ? confirmPassword === password
-                      ? null
-                      : "Passwords must match"
-                    : null
-                  : null
-                : null
-            }
-          />
+          <View style={styles.switchView}>
+            <Switch
+              style={styles.switch}
+              value={switchValue}
+              onValueChange={handleSwitchChange}
+            />
+            <Text style={styles.rememberMe}>Remember me</Text>
+            <Text
+              onPress={() => console.log("forgot password pressed")}
+              style={styles.forgotPwd}
+            >
+              Forgot Password
+            </Text>
+          </View>
         </View>
         <View style={styles.buttonView}>
           <Button
             containerStyle={styles.signInButton}
-            title="Sign Up"
+            title="Sign In"
             onPress={handleSubmit}
           />
           <View style={styles.signUpOfferView}>
             <Text style={styles.noAcctTxt}>
-              Already have an account?
-              <Text style={styles.signUpTxt} onPress={() => navigation.goBack()}> Sign In</Text>
+              Don't have an account?
+              <Text
+                style={styles.signUpTxt}
+                onPress={() => navigation.navigate(`Sign Up`)}
+              >
+                {" "}
+                Sign Up
+              </Text>
             </Text>
           </View>
         </View>
       </View>
-    </ScrollView>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -153,15 +121,16 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    marginVertical: 25,
   },
   inputView: {
-    flex: 4,
-    marginVertical: 20,
+    flex: 3,
+  },
+  switchView: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
   },
   buttonView: {
     flex: 1.5,
-    marginVertical: 30,
   },
   title: {},
   subTitle: {
@@ -207,4 +176,4 @@ const styles = StyleSheet.create({
   animation: {},
 });
 
-export default SignUpComponent;
+export default LoginComponent;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView, RefreshControl, SafeAreaView } from "react-native";
 import { Text, ListItem, Avatar } from "react-native-elements";
-import config from "../config";
+import config from "../../../config";
 import axios from "axios";
 
 function TickersView() {

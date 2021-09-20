@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Alert, Platform, ToastAndroid } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import LoginComponent from "./core_components/Login";
+import LoginComponent from "./Login";
 //fb auth
-import { auth } from "../firebase/firebase";
+import { auth } from "../../firebase/firebase";
 
 function LoginView({ navigation }) {
   //regex email & pwd
