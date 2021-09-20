@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { ToastAndroid, Platform, Alert } from 'react-native';
 import { useForm, Controller } from "react-hook-form";
-import ContactComponent from './core_components/Contact';
-import { db } from "../firebase/firebase";
+import ContactComponent from './Contact';
+import { db } from "../../firebase/firebase";
 import * as firebase from "firebase";
 import "firebase/firestore";
 

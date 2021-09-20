@@ -9,11 +9,11 @@ import {
 } from "@react-navigation/drawer";
 import { Icon, Avatar } from "react-native-elements";
 import { auth } from "../firebase/firebase";
-import Contact from "./ContactView";
-import Feed from "./FeedView";
-import LoginView from "./LoginView";
-import TickersView from "./TickersView";
-import SignUpView from "./SignUpView";
+import Contact from "../pages/Contact/ContactView";
+import Feed from "../pages/Feed/FeedView";
+import LoginView from "../pages/Login/LoginView";
+import TickersView from "../pages/Tickers/TickersView";
+import SignUpView from "../pages/SignUp/SignUpView";
 import { useSelector } from "react-redux";
 
 const Stack = createStackNavigator();
