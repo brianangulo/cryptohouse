@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "963468499528",
+    "project_id": "gputrackit",
+    "storage_bucket": "gputrackit.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:963468499528:android:340f8989da09eda07e967d",
+        "android_client_info": {
+          "package_name": "com.gputrackit.gputrackit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "963468499528-nmmlv4p137i05pur898bao4io31talsa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gputrackit.gputrackit",
+            "certificate_hash": "813014d095c138a73db63eaa53ed0c243ffb23c5"
+          }
+        },
+        {
+          "client_id": "963468499528-6453ci4kstqae93jcbb6m01sseqktvs5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQ4QPt_0XnHNUmt7kupdudw9yYMKHHNQQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "963468499528-6453ci4kstqae93jcbb6m01sseqktvs5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
