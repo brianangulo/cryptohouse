@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Alert, Platform, ToastAndroid } from "react-native";
+import React, { useState } from "react";
 import SignUpComponent from "./SignUp";
-//fb auth
-import { auth } from "../../firebase/firebase";
 
 function SignUpView({navigation}) {
 
@@ -20,40 +17,10 @@ function SignUpView({navigation}) {
 
   //Sign up logic + fb api
   const handleSignUp = (email, password, username) => {
-        auth.createUserWithEmailAndPassword(email, password).then(
-            () => {
-                auth.currentUser.updateProfile({
-                    displayName: username,
-                }).catch(console.error)
-            }
-        ).catch((error) => {
-            let errCode = error.code;
-            let errMess = error.message;
-            Platform.OS === "ios" ? Alert.alert(errCode) : ToastAndroid.show(errCode, ToastAndroid.LONG);
-            console.log(`Error Code: ${errCode} and Error Message: ${errMess}`);
-        })
   };
 
   //Submit SignUp button handler!
   const handleSubmit = () => {
-     if (auth.currentUser !== null) {
-       Alert.alert("You are already signed in!");
-       return;
-     } else if (
-       emailRegex.test(email) &&
-       pwdRegex.test(password) &&
-       nameRegex.test(name) &&
-       email !== "" &&
-       password !== "" &&
-       name !== ""
-     ) {
-       handleSignUp(email, password, name);
-       setEmail("");
-       setPassword("");
-       setName("");
-     } else {
-       Alert.alert("Missing Information");
-     }
   };
 
   return (

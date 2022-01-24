@@ -8,7 +8,6 @@ import {
   DrawerItem,
 } from "@react-navigation/drawer";
 import { Icon, Avatar } from "react-native-elements";
-import { auth } from "../firebase/firebase";
 import Contact from "../pages/Contact/ContactView";
 import Feed from "../pages/Feed/FeedView";
 import LoginView from "../pages/Login/LoginView";
@@ -30,27 +29,14 @@ function CustomDrawerContent(props) {
           </View>
           <View style={{ flex: 2 }}>
             {/* below text component will use ternary to check if the signed user has a name and return it otherwise will return cryptohouse */}
-            <Text style={styles.headerName}>{auth.currentUser.displayName !== null ? auth.currentUser.displayName : "CryptoHouse"}</Text>
+            <Text style={styles.headerName}>CryptoHouse</Text>
           </View>
         </View>
       </SafeAreaView>
       <DrawerItemList {...props} />
       <DrawerItem
         label="Sign Out"
-        onPress={() => {
-          if (auth.currentUser !== null) {
-            auth
-              .signOut()
-              .then(() => {
-                console.log("user signed out");
-              })
-              .catch((err) => {
-                console.log(`Found Error ${err}`);
-              });
-          } else {
-            console.log("unable to sign out: no user signed in");
-          }
-        }}
+        onPress={() => {}}
       />
     </DrawerContentScrollView>
   );
