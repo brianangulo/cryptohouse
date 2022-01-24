@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Alert, Platform, ToastAndroid } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import LoginComponent from "./Login";
-//fb auth
-import { auth } from "../../firebase/firebase";
 
 function LoginView({ navigation }) {
   //regex email & pwd
@@ -19,15 +16,7 @@ function LoginView({ navigation }) {
 
   //Sign in logic + fb api
   const handleSignIn = (email, password) => {
-    //sign in login
-    auth.signInWithEmailAndPassword(email, password).catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      Platform.OS === "ios"
-        ? Alert.alert(errorCode)
-        : ToastAndroid.show(errorCode, ToastAndroid.LONG);
-      console.log(` errCode: ${errorCode} & errMess: ${errorMessage}`);
-    });
+    // handle sign in function
   };
 
   //checking async storage for a remember me value and setting the state based on it
@@ -45,49 +34,8 @@ function LoginView({ navigation }) {
     didYouRememberMe();
   }, []);
 
-  //below 3 functions handle remember me logic
-  //not being used at the moment
-  const forgetMe = async () => {
-    await AsyncStorage.clear().catch((err) => console.log(err));
-  };
-  /**
-   *
-   * @param {*} key Needed storing key
-   * @param {*} valuesObj An object containing the data being saved
-   */
-  const rememberMe = async (key, valuesObj) => {
-    await AsyncStorage.setItem(key, valuesObj, (err) => console.log(err));
-  };
+  const handleSubmit = () => {};
 
-  //Submit login button handler!
-  const handleSubmit = async () => {
-    //checking to make sure all of the right information is being entered before submitting
-    //else alerting user
-    if (auth.currentUser !== null) {
-      Alert.alert("You are already signed in!");
-      return;
-    } else if (
-      emailRegex.test(email) &&
-      pwdRegex.test(password) &&
-      email !== "" &&
-      password !== ""
-    ) {
-      handleSignIn(email, password);
-      if (switchValue) {
-        await rememberMe(
-          "email",
-          JSON.stringify({
-            email: email,
-            switch: switchValue,
-          })
-        ).catch((err) => console.log(err));
-      } else await AsyncStorage.clear();
-      setEmail("");
-      setPassword("");
-    } else {
-      Alert.alert("Missing Login Information");
-    }
-  };
   /**
    * This function will handle the switch changing on the login screen
    */
